@@ -1,0 +1,36 @@
+/ Motor Specs: https://www.amazon.com/dp/B08PKJVNSQ?ref=ppx_yo2ov_dt_b_product_details&th=1
+// https://github.com/cmg189/stepper_motor/blob/master/main.ino
+// NEMA 17 Stepper Motor (Bidirectional)
+// DC 4.1 V
+// Holding Torque >= 130 mN.m
+// Step Angle 1.8
+// num steps per revolution = 360 / step angle
+//
+#include <Stepper.h>
+
+const int button_pin = 12;		// toggle button
+Stepper my_motor(200, 4, 5, 6, 7);		// using pins 4 - 7
+
+const int motor_speed = 60;
+const int head_straight = 20;  // amount of movement to turn orient head position
+const int left_turn = 100;     // moving head left (clockwise)
+const int right_turn = -100;   // moving head right (counter clockwise)
+
+void setup() {
+  my_motor.setSpeed(motor_speed);		// set speed and button's pin
+  pinMode(button_pin, INPUT);
+}
+
+void loop() {
+
+  int button_status = digitalRead(button_pin);		// reading the button for any input
+
+  if(button_status == 1){
+    my_motor.step(left_turn);  // head moving left to right (button not held)
+    delay(1000);
+    my_motor.step(right_turn);
+  }else{
+    my_motor.step(head_straight); // move until head is in position (button is held)
+  }
+
+}
