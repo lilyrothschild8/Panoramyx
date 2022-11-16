@@ -1,0 +1,33 @@
+// https://www.instructables.com/DIY-SINGLE-ARM-SCARA-ROBOT/
+void inverse_kinematics(float const *cartesian, float *f_scara)
+{
+    float SCARA_pos[2];
+
+    static float SCARA_C2, SCARA_S2, SCARA_K1, SCARA_K2, SCARA_theta, SCARA_psi;
+
+    SCARA_pos[X_AXIS] = -cartesian[X_AXIS] - SCARA_OFFSET_X;
+    SCARA_pos[Y_AXIS] = cartesian[Y_AXIS] + SCARA_OFFSET_Y;
+
+    SCARA_C2 =   ( sq(SCARA_pos[X_AXIS]) + sq(SCARA_pos[Y_AXIS]) - L1_2 - L2_2 ) /(2*L1*L2);
+    SCARA_S2 = sqrtf( 1 - sq(SCARA_C2) );
+
+    SCARA_K1 = L1 + L2 * SCARA_C2;
+    SCARA_K2 = L2 * SCARA_S2;
+
+    SCARA_theta = ( atan2f(SCARA_K1, SCARA_K2)-atan2f(SCARA_pos[X_AXIS],SCARA_pos[Y_AXIS]) ) ;
+    SCARA_psi   =   atan2f(SCARA_S2,SCARA_C2) + SCARA_theta; 
+		
+	if(!angle_mode)
+	{
+		f_scara[X_AXIS] = DEGREES(SCARA_theta);
+		f_scara[Y_AXIS] = DEGREES(SCARA_psi);
+		f_scara[Z_AXIS] = cartesian[Z_AXIS];
+	}
+	else
+	{
+		f_scara[X_AXIS] = cartesian[X_AXIS]; 
+		f_scara[Y_AXIS] = cartesian[Y_AXIS]; 
+		f_scara[Z_AXIS] = cartesian[Z_AXIS];		
+		
+	}
+}
