@@ -1,0 +1,31 @@
+// Include the Stepper library<br>#include 
+// Declare the used pins
+int dirA = 12;
+int dirB = 13;
+int pwmA = 3;
+int pwmB = 11;
+// Declare a Stepper motor with 200 steps 
+Stepper stepper1(200, dirA, dirB);
+void setup() {
+  // PWM pins require declaration when used as Digital
+  pinMode(pwmA, OUTPUT);
+  pinMode(pwmB, OUTPUT);
+  
+  // Set PWM pins as always HIGH
+  digitalWrite(pwmA, HIGH);
+  digitalWrite(pwmB, HIGH);
+  
+  // Set stepper motor speed
+  stepper1.setSpeed(60);
+}
+void loop(){
+  // Turn the stepper 100 steps which means 180 degrees
+  stepper1.step(100);
+  // Wait half second
+  delay(500);
+  
+  // Turn the stepper 100 steps back which means 180 degrees
+  stepper1.step(-100);
+  // Wait half second
+  delay(500);
+}
