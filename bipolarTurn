@@ -1,3 +1,4 @@
+// https://www.instructables.com/Arduino-Stepper-Motors/
 // Include the Stepper library<br>#include 
 // Declare the used pins
 int dirA = 12;
