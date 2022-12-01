@@ -19,6 +19,10 @@ const int PUL_PINS[3] = {3, 5, 7};
 
 int coordinates[3];
 const int MAX[3] = {200, 200, 200};
+const int motor_speed = #;
+const int return = 0;
+const int L_turn = 100 // CW
+const int R_turn = -100 // CCW
 
 void setup() {
 
@@ -29,6 +33,11 @@ void setup() {
   pinMode ( DIR_PINS[0], OUTPUT );
   pinMode ( DIR_PINS[1], OUTPUT );
   pinMode ( DIR_PINS[2], OUTPUT );
+  
+  stepper.setMaxSpeed(200);  //set 
+  stepper.setAcceleration(100); //set 
+  Serial.begin(100); //decide 
+  delay(100);
   
   /*
   * pinMode ( ENDSTOPS[0], OUTPUT );
@@ -67,5 +76,11 @@ void home() {
       {
         stepMotor( z, -1 );
       }
-    }
 }
+
+int allowed( int axis, int value ) {
+  if ( coordinates[axis] + value > MAX[axis] ) {
+    return MAX[axis] - coordinates[axis];
+  }
+}
+
