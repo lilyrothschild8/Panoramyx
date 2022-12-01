@@ -1,0 +1,71 @@
+/*
+* x:0
+* y:1
+* z:2
+*/
+
+#define x 0
+#define y 1
+#define z 2 
+
+/*
+* Pin setup 
+* 
+* const int REMOTE[3] = {};
+*/
+const int DIR_PINS[3] = {2, 4, 6}; 
+const int PUL_PINS[3] = {3, 5, 7};
+// const int ENDSTOPS[3] = {_, _, _};
+
+int coordinates[3];
+const int MAX[3] = {200, 200, 200};
+
+void setup() {
+
+  pinMode ( PUL_PINS[0], OUTPUT );
+  pinMode ( PUL_PINS[1], OUTPUT );
+  pinMode ( PUL_PINS[2], OUTPUT );
+  
+  pinMode ( DIR_PINS[0], OUTPUT );
+  pinMode ( DIR_PINS[1], OUTPUT );
+  pinMode ( DIR_PINS[2], OUTPUT );
+  
+  /*
+  * pinMode ( ENDSTOPS[0], OUTPUT );
+  * pinMode ( ENDSTOPS[1], OUTPUT );
+  * pinMode ( ENDSTOPS[2], OUTPUT );
+  * pinMode (REMOTE[3], INPUT);
+  */
+  
+  home();
+  coordinates[0] = 0;
+  coordinates[1] = 0;
+  coordinates[2] = 0;
+}
+
+void loop() {
+  handle ( x ); // x direction movement 
+  handle ( y ); // y direction movement
+  handle ( z ); // z direction movement
+
+}
+
+void home() {
+  while ( digitalRead( ENDSTOPS[x] ) == 0 ||
+    digitalRead (ENDSTOPS[y] ) == 0 ||
+    digitalRead (ENDSTOPS[z] ) == 0 
+    {
+    if( digitalRead( ENDSTOPS[x] ) == 0) 
+      {
+        stepMotor( x, -1 );
+      }
+    if( digitalRead( ENDSTOPS[y] ) == 0) 
+      {
+        stepMotor( y, -1 );
+      }
+    if( digitalRead( ENDSTOPS[z] ) == 0) 
+      {
+        stepMotor( z, -1 );
+      }
+    }
+}
