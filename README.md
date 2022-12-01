@@ -5,9 +5,9 @@ Nema 17 Motors
 TB6600 Stepper Driver Control
 ------------------------------
 **Motor:Pin Connection**
-Flexion
+Flexion/Extension
 1:4
-Extension
+Axial Rotation
 2:5
-Side Bending
+Lateral Bending
 3:6
