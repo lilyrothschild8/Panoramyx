@@ -1,0 +1,21 @@
+#include <Stepper.h>
+
+//analog input 0 -- potentiometer
+
+#define STEPS 200 
+
+Stepper stepper(STEPS, 4, 5, 6)
+
+int previous = 0; //analog input? (digital)
+
+void setup () {
+  stepper.setSpeed(x) // set speed to __ RPM
+}
+
+void loop() {
+//sensor value 
+  int val = analogRead(0);
+  stepper.step(val-previous);
+  
+  previous = val;
+}
