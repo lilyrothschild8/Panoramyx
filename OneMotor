@@ -1,0 +1,19 @@
+# include <Stepper.h>
+
+const int stepsPerRevolution = 200;
+
+Stepper myStepper(stepsPerRev, 4, 5, 6);
+
+int stepCount = 0; 
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  mystepper.step(1);
+  Serial.print("steps: ");
+  Serial.println(stepCount);
+  stepCount++;
+  delay(1000);
+}
