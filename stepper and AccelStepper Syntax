@@ -1,0 +1,60 @@
+// ----------------------------------------
+// <Stepper.h> library 
+// ----------------------------------------
+//Include at the top of the sketch above setup() and loop()
+const int stepsPerRevolution = 200; 
+Stepper(steps, pin1, pin2)
+//Steps: number of steps (360/1.8=200)
+//returns new instance of stepper motor class
+
+// ----------------------------------------
+setSpeed(rpms)
+//rpms: the speed at which the monitor should turn in rotations/minute (positive long)
+//returns nothing
+// ----------------------------------------
+step(steps)
+//returns nothing
+// ----------------------------------------
+//pwm: pulse width modulation
+//PWM pins require declaration when used as **Digital** (in setup)
+pinMode(pwmA, OUTPUT);
+pinMode(pwmB, OUTPUT);
+// Set PWM pins as always HIGH (in loop)
+digitalWrite(pwmA, HIGH);
+digitalWrite(pwmB, HIGH);
+// ----------------------------------------
+//dir: controls the spinnign direction of the motor
+  // high: CW
+  // low: CW
+  
+// ----------------------------------------
+// <AccelStepper.h>
+// ----------------------------------------
+// define pin connections 
+const int dirPin = x;
+const int stepPin = y;
+// ----------------------------------------
+** // 1 = external stepper driver with step and direction pins **
+#define motorInterfaceType 1 
+
+//create instance
+AccelStepper myStepper(motorInterfaceType, stepPin, dirPin);
+// ----------------------------------------
+// set the maximum speed, acceleration factor,
+// initial speed and the target position
+void setup() {
+myStepper.setMaxSpeed(1000);
+myStepper.setAcceleration(50);
+myStepper.setSpeed(200);
+myStepper.moveTo(200);
+}
+
+void loop() {
+	// Change direction once the motor reaches target position
+	if (myStepper.distanceToGo() == 0) 
+		myStepper.moveTo(-myStepper.currentPosition());
+
+	// Move the motor one step
+	myStepper.run();
+}
+
