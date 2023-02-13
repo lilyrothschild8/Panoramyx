@@ -1,8 +1,8 @@
 # Panoramyx
 Arduino NANO BLE Programs 
 -------------------------
-Nema 17 Motors 
-TB6600 Stepper Driver Control
+3 Nema 17 Motors 
+3 TB6600 Stepper Driver Controllers
 
 ------------------------------
 **Motor:Pin Connection**
